@@ -1,0 +1,25 @@
+<html>
+
+<head>
+  <title>Video Streaming Demonstration</title>
+</head>
+
+<body>
+  <video id="myVideo" width="320" height="240" controls >
+    <source src="{{url_for('static', filename=video_name) }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video><br>
+  
+  <button onclick="setCurTime()" type="button">Set time position to the anomaly</button>
+  
+  <script>
+  var x = document.getElementById("myVideo"); 
+  
+  function setCurTime() { 
+    x.currentTime = parseInt("{{ timestamp }}");
+  } 
+  </script> 
+
+</body>
+
+</html>
