@@ -67,10 +67,10 @@ async def process_video(id, timestamp):
     output_file = ""
     output_file = video_name + str(timestamp) + ".mp4"
     output_file = output_file.replace("static/", "")
-    future = asyncio.ensure_future(create_clip(video_name, timestamp, output_file))
+    future = asyncio.ensure_future(create_clip(video_name, timestamp, 'raw'))
     print('Waiting for a few seconds')
     
-    return render_template("video_player.html", video_name=output_file, timestamp=30)
+    return render_template("video_player.html", video_name=output_file, timestamp=5)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, threaded=True)
