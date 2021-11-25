@@ -35,9 +35,16 @@ async def create_clip(video_name, timestamp, type):
             frame_time = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000
             
             if (frame_time >= time_before) and (frame_time <= time_after):
+                print(frame_time)
                 # write frame
                 if (type == 'raw') or (type == 'all'):
                     out.write(img)
+
+                # process anonymize
+                if (type == 'anon') or (type == 'all'):
+                    bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    #blur = find_and_blur(bw, img)
+                    out_anon.write(bw)
 
                 # process object detector
                 if (type == 'obj') or (type == 'all'):
@@ -45,11 +52,6 @@ async def create_clip(video_name, timestamp, type):
                     frame = o.plot_boxes(results, img)
                     out_boxes.write(frame)
 
-                # process anonymize
-                if (type == 'anon') or (type == 'all'):
-                    bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    blur = find_and_blur(bw, img)
-                    out_anon.write(blur)
 
             if frame_time > time_after:
                 break

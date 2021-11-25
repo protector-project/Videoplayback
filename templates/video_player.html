@@ -5,19 +5,67 @@
 </head>
 
 <body>
-  <video id="myVideo" width="320" height="240" controls >
+  <!-- <video id="myVideo" width="320" height="240" controls >
     <source src="{{url_for('static', filename=video_name) }}" type="video/mp4">
     Your browser does not support the video tag.
-  </video><br>
+  </video> -->
+  <br>
+
+  <table>
+    <tr>
+      <th>
+        <video id="rawVideo" width="320" height="240" controls >
+        <source src="{{url_for('static', filename=raw_video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </th>
+      <th>
+        <video id="objtVideo" width="320" height="240" controls >
+          <source src="{{url_for('static', filename=obj_video) }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <video id="anonVideo" width="320" height="240" controls >
+          <source src="{{url_for('static', filename=anon_video) }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </td>
+      <td>
+        <video id="trajVideo" width="320" height="240" controls >
+          <source src="{{url_for('static', filename=raw_video) }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </td>
+    </tr>
+  </table>
   
   <button onclick="setCurTime()" type="button">Set time position to the anomaly</button>
+  <button onclick="playall()" type="button">Play All</button>
   
   <script>
-  var x = document.getElementById("myVideo"); 
+  var x = document.getElementById("rawVideo");
+  var w = document.getElementById("objtVideo"); 
+  var y = document.getElementById("anonVideo"); 
+  var z = document.getElementById("trajVideo"); 
   
   function setCurTime() { 
     x.currentTime = parseInt("{{ timestamp }}");
+    w.currentTime = parseInt("{{ timestamp }}");
+    y.currentTime = parseInt("{{ timestamp }}");
+    z.currentTime = parseInt("{{ timestamp }}");
+  }
+  
+  function playall() {
+    x.play();
+    w.play();
+    y.play();
+    z.play();
+
   } 
+
   </script> 
 
 </body>

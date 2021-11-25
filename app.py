@@ -56,6 +56,7 @@ def video_feed2(id, timestamp):
     video_name = video_name + ".mp4"
     return render_template("video_player.html", video_name=video_name, timestamp=5)
 
+
 @app.route("/objects/<id>/<timestamp>")
 async def process_video(id, timestamp):
     video_name = str(id)
@@ -64,13 +65,26 @@ async def process_video(id, timestamp):
         return Response("Not Found")
     FILE_FOLDER = "static/"
     video_name = FILE_FOLDER + video_name + ".avi"
+    
     output_file = ""
     output_file = video_name + str(timestamp) + ".mp4"
+    boxes_file_name = video_name + str(timestamp) + "_objects" + ".mp4"
+    anon_file_name = video_name + str(timestamp) + "_anon" + ".mp4"
     output_file = output_file.replace("static/", "")
-    future = asyncio.ensure_future(create_clip(video_name, timestamp, 'raw'))
-    print('Waiting for a few seconds')
+    boxes_file_name = boxes_file_name.replace("static/", "")
+    anon_file_name = anon_file_name.replace("static/", "")
     
-    return render_template("video_player.html", video_name=output_file, timestamp=5)
+    future = asyncio.ensure_future(create_clip(video_name, timestamp, "all"))
+    print("Processing Video")
+
+    return render_template(
+        "video_player.html",
+        raw_video=output_file,
+        anon_video=anon_file_name,
+        obj_video=boxes_file_name,
+        timestamp=5,
+    )
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, threaded=True)
