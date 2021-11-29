@@ -23,6 +23,10 @@ def index():
     return render_template("index.html")
 
 
+def update_files():
+    filenames = [f for f in listdir(VIDEO_FOLDER) if isfile(join(VIDEO_FOLDER, f))]
+    return filenames
+
 def gen(videoname):
     stream = VideoGear(source=videoname).start()
     while True:
@@ -74,8 +78,12 @@ async def process_video(id, timestamp):
     boxes_file_name = boxes_file_name.replace("static/", "")
     anon_file_name = anon_file_name.replace("static/", "")
     
-    future = asyncio.ensure_future(create_clip(video_name, timestamp, "all"))
-    print("Processing Video")
+    filenames = update_files()
+    if (output_file in filenames) and (boxes_file_name in filenames) and (anon_file_name in filenames):
+        pass
+    else:
+        future = asyncio.ensure_future(create_clip(video_name, timestamp, "all"))
+        print("Processing Video")
 
     return render_template(
         "video_player.html",
