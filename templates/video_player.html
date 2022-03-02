@@ -15,13 +15,13 @@
     <tr>
       <th>
         <video id="rawVideo" width="320" height="240" controls >
-        <source src="{{url_for('static', filename=raw_video) }}" type="video/mp4">
+        <source src="{{url_for('send_video', path=raw_video) }}" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </th>
       <th>
         <video id="objtVideo" width="320" height="240" controls >
-          <source src="{{url_for('static', filename=obj_video) }}" type="video/mp4">
+          <source src="{{url_for('send_video', path=obj_video) }}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </th>
@@ -29,13 +29,13 @@
     <tr>
       <td>
         <video id="anonVideo" width="320" height="240" controls >
-          <source src="{{url_for('static', filename=anon_video) }}" type="video/mp4">
+          <source src="{{url_for('send_video', path=anon_video) }}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </td>
       <td>
         <video id="trajVideo" width="320" height="240" controls >
-          <source src="{{url_for('static', filename=raw_video) }}" type="video/mp4">
+          <source src="{{url_for('send_video', path=raw_video) }}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </td>
